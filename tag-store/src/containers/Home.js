@@ -1,12 +1,12 @@
 import React from "react";
+import { Typography, Box } from '@material-ui/core';
+import { flexbox, positions, spacing } from '@material-ui/system';
 
 export default function Home() {
   return (
-    <div className="Home">
-      <div className="lander">
-        <h1>Tag Store</h1>
-        <p>An image recognition service</p>
-      </div>
-    </div>
+    <Box position="absolute" top="40%" left="40%">
+      <Typography variant="h1">Tag Store</Typography>
+      <p>An image recognition service</p>
+    </Box>
   );
 }
