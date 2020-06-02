@@ -1,6 +1,6 @@
 export default {
     s3: {
-      REGION: "US-east-1",
+      REGION: "us-east-1",
       BUCKET: "imageprocess-bucket"
     },
     apiGateway: {
