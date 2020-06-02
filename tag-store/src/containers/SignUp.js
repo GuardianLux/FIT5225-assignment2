@@ -1,9 +1,7 @@
 
 import React from 'react';
-import { Typography, Box } from '@material-ui/core';
+import { Typography, Box, Button, TextField } from '@material-ui/core';
 import { flexbox, positions, spacing } from '@material-ui/system';
-import { Button } from '@material-ui/core';
-import { TextField } from '@material-ui/core';
 
 export default function SignUp() {
     return (
