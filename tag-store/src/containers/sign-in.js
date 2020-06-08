@@ -5,12 +5,13 @@ import { Button } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../libs/contextLib'
+import { useHistory } from 'react-router-dom'
 
 export default function SignIn() {
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
-
     const { userHasAuthenticated } = useAppContext()    // use hook to update state and pass to context
+    const history = useHistory()
 
     async function handleSignIn(e) {
         e.preventDefault()
@@ -18,6 +19,7 @@ export default function SignIn() {
             await Auth.signIn(userName, password)
             alert("Logged In")
             userHasAuthenticated(true)
+            history.push("/Navigation")
         } catch (err) {
             alert(err.message)
         }
