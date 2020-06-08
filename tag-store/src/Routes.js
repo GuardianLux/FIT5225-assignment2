@@ -5,6 +5,7 @@ import SignUp from "./containers/SignUp";
 import Home from "./containers/Home";
 import NotFound from "./containers/NotFound"
 import Upload from "./containers/Upload"
+import Navigation from "./containers/Navigation"
 
 export default function Routes() {
   return (
@@ -20,6 +21,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/Upload">
         <Upload />
+      </Route>
+      <Route>
+        <Navigation exact path="/Navigation"> /</Navigation>
       </Route>
       <Route>
         <NotFound />

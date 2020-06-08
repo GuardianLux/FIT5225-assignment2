@@ -23,39 +23,52 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
-  const [isAuthenticated, userHasAuthenticated] = useState(false)   // add session to state
   const [isAuthenticating, setIsAuthenticating] = useState(true)    // load state from session
+  const [isAuthenticated, userHasAuthenticated] = useState(false)   // add session to state
 
-  // useEffect(() => {
-  //   // console.log(isAuthenticated)
-  //   onLoad()
-  // }, [])
+  // similar to componentDidMount in classes
+  // second parameter empty list implies function passed will run only on the FIRST render
+  // i.e. when the app first loads, to check the auth from user session
+  useEffect(() => {
+    console.log("isAuthenicated", isAuthenticated)
+    console.log("isAuthenticating", isAuthenticating)
+    onLoad()
+  }, [])
 
-  // async function onLoad {
-  //   try {
-  //     await Auth.currentSession()
-  //     userHasAuthenticated(true)
-  //   } catch(e) {
-  //     if (e !== 'No current user') {
-  //       alert(e)
-  //     }
-  //   }
-  //   setIsAuthenticating(false)
-  // }
+  async function onLoad() {
+    try {
+      await Auth.currentSession()
+      userHasAuthenticated(true)
+    } catch (e) {
+      if (e !== 'No current user') {
+        alert(e)
+      }
+    }
+    setIsAuthenticating(false)
+  }
 
   // handle logout, logout button appears after sign in
-  function handleLogout(e) {
-    e.preventDefault()
+  async function handleLogout(e) {
+    // e.preventDefault()
+    await Auth.signOut()
     userHasAuthenticated(false)
   }
 
+  function handleCheckState(e) {
+    e.preventDefault()
+    console.log("isAuthenicated", isAuthenticated)
+    console.log("isAuthenticating", isAuthenticating)
+  }
+
   return (
+    !isAuthenticating &&
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Tag Store
           </Typography>
+          {/* <Button color="inherit" onClick={handleCheckState}>Check State</Button> */}
           {isAuthenticated
             ? <Button color="inherit" href="/" onClick={handleLogout}>Logout</Button>
             : <>
