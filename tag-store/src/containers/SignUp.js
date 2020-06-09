@@ -15,6 +15,12 @@ export default function SignUp() {
                     autoComplete="current-password"
                     variant="filled"
                 />
+                <TextField
+                    id="filled-password-input"
+                    label="Confirm Password"
+                    type="password"
+                    variant="filled"
+                />
                 <Button variant="contained" href="/">Register</Button>
             </Box>
     );
