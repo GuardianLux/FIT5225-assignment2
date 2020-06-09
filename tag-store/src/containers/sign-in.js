@@ -6,17 +6,20 @@ import { TextField } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../libs/contextLib'
 import { useHistory } from 'react-router-dom'
+import { useFormFields } from '../libs/hooksLib' 
 
 export default function SignIn() {
-    const [userName, setUserName] = useState("")
-    const [password, setPassword] = useState("")
+    const [fields, handleFieldChange] = useFormFields({     // custom hook for form fields
+        userName: "",
+        password: ""
+    })
     const { userHasAuthenticated } = useAppContext()    // use hook to update state and pass to context
     const history = useHistory()
 
     async function handleSignIn(e) {
         e.preventDefault()
         try {
-            await Auth.signIn(userName, password)
+            await Auth.signIn(fields.userName, fields.password)
             alert("Logged In")
             userHasAuthenticated(true)
             history.push("/Navigation")
@@ -32,7 +35,8 @@ export default function SignIn() {
                 id="filled-basic"
                 label="Username"
                 variant="filled"
-                onChange={e => setUserName(e.target.value)}
+                name="userName"
+                onChange={handleFieldChange}
             />
             <TextField
                 id="filled-password-input"
@@ -40,7 +44,8 @@ export default function SignIn() {
                 type="password"
                 autoComplete="current-password"
                 variant="filled"
-                onChange={e => setPassword(e.target.value)}
+                name="password"
+                onChange={handleFieldChange}
             />
             <Button
             variant="contained"
