@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../libs/contextLib'
 import { useHistory } from 'react-router-dom'
-import { useFormFields } from '../libs/hooksLib' 
+import { useFormFields } from '../libs/hooksLib'
 
 export default function SignIn() {
     const [fields, handleFieldChange] = useFormFields({     // custom hook for form fields
@@ -18,13 +18,17 @@ export default function SignIn() {
 
     async function handleSignIn(e) {
         e.preventDefault()
-        try {
-            await Auth.signIn(fields.userName, fields.password)
-            alert("Logged In")
-            userHasAuthenticated(true)
-            history.push("/Navigation")
-        } catch (err) {
-            alert(err.message)
+        if (fields.userName.length == 0 || fields.password.length == 0) {
+            alert("Username or password cannot be blank")
+        } else {
+            try {
+                await Auth.signIn(fields.userName, fields.password)
+                alert("Logged In")
+                userHasAuthenticated(true)
+                history.push("/Navigation")
+            } catch (err) {
+                alert(err.message)
+            }
         }
     }
 
@@ -48,9 +52,9 @@ export default function SignIn() {
                 onChange={handleFieldChange}
             />
             <Button
-            variant="contained"
-            href="/"
-            onClick={handleSignIn}
+                variant="contained"
+                href="/"
+                onClick={handleSignIn}
             >Sign In</Button>
         </Box>
     );
