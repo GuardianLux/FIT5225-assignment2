@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Typography, Box, Button, TextField } from '@material-ui/core';
 import { flexbox, positions, spacing } from '@material-ui/system';
 import { useFormFields } from '../libs/hooksLib'
+import { Auth } from 'aws-amplify'
+import { useAppContext } from '../libs/contextLib'
+import { useHistory } from 'react-router-dom'
 
 export default function SignUp() {
     const [fields, handleFieldChange] = useFormFields({     // custom hook to handle form field values
@@ -14,22 +17,49 @@ export default function SignUp() {
         confirmationCode: ""
     })
 
-    const [newUser, setNewUser] = useState(null)    // test new user
+    const [newUser, setNewUser] = useState(null)    // user object
+    const { userHasAuthenticated } = useAppContext()
+    const history = useHistory()
 
     // handle registration click button
     async function handleRegisterClick(e) {
         e.preventDefault()
-        console.log("username", fields.userName)
-        console.log("firstname", fields.firstName)
-        console.log("lastname", fields.lastName)
-        console.log("password", fields.password)
-        console.log("confirm password", fields.confirmPassword)
-        setNewUser("test")
+        if (fields.userName.length == 0 || fields.firstName.length == 0 || fields.lastName.length == 0 || fields.password.length == 0 || fields.confirmPassword.length == 0) {
+            alert("All fields are mandatory, please fill in all fields")
+        } else {
+            if (fields.password !== fields.confirmPassword) {
+                alert("Passwords don't match")
+            } else {
+                try {
+                    const newUser = await Auth.signUp({
+                        username: fields.userName,
+                        password: fields.password,
+                        attributes: {
+                            email: fields.userName,
+                            given_name: fields.firstName,
+                            family_name: fields.lastName
+                        }
+                    })
+                    setNewUser(newUser)
+                } catch (err) {
+                    alert(err)
+                }
+            }
+        }
     }
 
     // handle confirmation submit
     async function handleConfirmationCodeSubmit(e) {
         e.preventDefault()
+        try {
+            await Auth.confirmSignUp(fields.userName, fields.confirmationCode)
+            await Auth.signIn(fields.userName, fields.password)
+            userHasAuthenticated(true)
+            alert("Registration successful! Redirecting to main menu")
+            history.push("/Navigation")
+        } catch (error) {
+            alert(error)
+        }
     }
 
     // render registration form
@@ -42,6 +72,8 @@ export default function SignUp() {
                     label="Username"
                     variant="filled"
                     name="userName"
+                    required={true}
+                    value={fields.userName}
                     onChange={handleFieldChange}
                 />
                 <TextField
@@ -49,6 +81,8 @@ export default function SignUp() {
                     label="First Name"
                     variant="filled"
                     name="firstName"
+                    required={true}
+                    value={fields.firstName}
                     onChange={handleFieldChange}
                 />
                 <TextField
@@ -56,6 +90,8 @@ export default function SignUp() {
                     label="Last Name"
                     variant="filled"
                     name="lastName"
+                    required={true}
+                    value={fields.lastName}
                     onChange={handleFieldChange}
                 />
                 <TextField
@@ -65,6 +101,8 @@ export default function SignUp() {
                     autoComplete="current-password"
                     variant="filled"
                     name="password"
+                    required={true}
+                    value={fields.password}
                     onChange={handleFieldChange}
                 />
                 <TextField
@@ -74,6 +112,8 @@ export default function SignUp() {
                     autoComplete="current-password"
                     variant="filled"
                     name="confirmPassword"
+                    required={true}
+                    value={fields.confirmPassword}
                     onChange={handleFieldChange}
                 />
                 <Button variant="contained" onClick={handleRegisterClick}>Register</Button>
@@ -91,6 +131,7 @@ export default function SignUp() {
                     label="Enter Confirmation Code"
                     variant="filled"
                     name="confirmationCode"
+                    value={fields.confirmationCode}
                     onChange={handleFieldChange}
                 />
                 <Button variant="contained" onClick={handleConfirmationCodeSubmit}>Submit</Button>

@@ -40,6 +40,7 @@ export default function SignIn() {
                 label="Username"
                 variant="filled"
                 name="userName"
+                value={fields.userName}
                 onChange={handleFieldChange}
             />
             <TextField
@@ -49,6 +50,7 @@ export default function SignIn() {
                 autoComplete="current-password"
                 variant="filled"
                 name="password"
+                value={fields.password}
                 onChange={handleFieldChange}
             />
             <Button
