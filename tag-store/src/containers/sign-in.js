@@ -6,22 +6,29 @@ import { TextField } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
 import { useAppContext } from '../libs/contextLib'
 import { useHistory } from 'react-router-dom'
+import { useFormFields } from '../libs/hooksLib'
 
 export default function SignIn() {
-    const [userName, setUserName] = useState("")
-    const [password, setPassword] = useState("")
+    const [fields, handleFieldChange] = useFormFields({     // custom hook for form fields
+        userName: "",
+        password: ""
+    })
     const { userHasAuthenticated } = useAppContext()    // use hook to update state and pass to context
     const history = useHistory()
 
     async function handleSignIn(e) {
         e.preventDefault()
-        try {
-            await Auth.signIn(userName, password)
-            alert("Logged In")
-            userHasAuthenticated(true)
-            history.push("/Navigation")
-        } catch (err) {
-            alert(err.message)
+        if (fields.userName.length == 0 || fields.password.length == 0) {
+            alert("Username or password cannot be blank")
+        } else {
+            try {
+                await Auth.signIn(fields.userName, fields.password)
+                alert("Logged In")
+                userHasAuthenticated(true)
+                history.push("/Navigation")
+            } catch (err) {
+                alert(err.message)
+            }
         }
     }
 
@@ -32,7 +39,9 @@ export default function SignIn() {
                 id="filled-basic"
                 label="Username"
                 variant="filled"
-                onChange={e => setUserName(e.target.value)}
+                name="userName"
+                value={fields.userName}
+                onChange={handleFieldChange}
             />
             <TextField
                 id="filled-password-input"
@@ -40,12 +49,14 @@ export default function SignIn() {
                 type="password"
                 autoComplete="current-password"
                 variant="filled"
-                onChange={e => setPassword(e.target.value)}
+                name="password"
+                value={fields.password}
+                onChange={handleFieldChange}
             />
             <Button
-            variant="contained"
-            href="/"
-            onClick={handleSignIn}
+                variant="contained"
+                href="/"
+                onClick={handleSignIn}
             >Sign In</Button>
         </Box>
     );
