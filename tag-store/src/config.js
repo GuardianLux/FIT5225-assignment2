@@ -4,8 +4,8 @@ export default {
       BUCKET: "object-detection-image-dump"
     },
     apiGateway: {
-      REGION: "YOUR_API_GATEWAY_REGION",
-      URL: "YOUR_API_GATEWAY_URL"
+      REGION: "us-east-1",
+      URL: "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/"
     },
     cognito: {
       REGION: "us-east-1",
