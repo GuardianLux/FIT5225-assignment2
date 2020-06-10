@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { Typography, Box, Button, TextField } from '@material-ui/core';
 import { flexbox, positions, spacing } from '@material-ui/system';
 import { Storage } from "aws-amplify";
-import config from "../config";
 import { useHistory } from 'react-router-dom'
 
 export default function Upload() {
@@ -24,6 +23,7 @@ export default function Upload() {
       fileUrl = ''
       filename = ''
       file=''
+      history.push("/Navigation")
     })
     .catch(err => {
       console.log(err)
