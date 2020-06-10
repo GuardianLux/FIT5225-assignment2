@@ -24,6 +24,11 @@ export default function Navigation() {
         history.push("/Upload")
     }
 
+    function handleQueryClick(e) {
+        console.log("clicked")
+        history.push("/Query")
+    }
+
     return (
         <div className={classes.root}>
             <Typography variant="h6" >Navigation Menu</Typography>
@@ -31,7 +36,7 @@ export default function Navigation() {
             <Paper>
                 <MenuList>
                     <MenuItem onClick={handleUploadClick}>Upload Image</MenuItem>
-                    <MenuItem>Query Image</MenuItem>
+                    <MenuItem onClick={handleQueryClick}>Query Image</MenuItem>
                 </MenuList>
             </Paper>
         </div>
