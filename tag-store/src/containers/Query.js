@@ -27,6 +27,7 @@ export default function Query() {
             alert("Only 10 tags allowed")
         }
         return tagArray
+    }
     async function handleExecuteClick() {
       const idToken = await (await Auth.currentSession()).getIdToken()
       // console.log(idToken.getJwtToken())
