@@ -6,6 +6,8 @@
     },
     "s3": {
         "REGION": "us-east-1",
-        "BUCKET": "object-detection-image-dump"
+        "BUCKET": "object-detection-image-dump",
+        "ACCESSKEYID": "ASIASO2ZSP7R3IT4F4MP",
+        "SECRETACCESSKEY": "mmaQx6KMTkKFqQRCtnPwThueMBz7jqHsYBHL+MTF"
       }
 }
