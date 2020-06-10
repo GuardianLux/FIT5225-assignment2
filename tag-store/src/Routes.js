@@ -27,7 +27,9 @@ export default function Routes() {
         <Query />
       </Route>
       <Route>
-        <Navigation exact path="/Navigation"> /</Navigation>
+        <Route exact path="/Navigation">
+          <Navigation />
+        </Route>
       </Route>
       <Route>
         <NotFound />

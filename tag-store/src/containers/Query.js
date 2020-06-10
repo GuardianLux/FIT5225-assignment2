@@ -7,21 +7,34 @@ import axios from 'axios'
 import Qs from 'qs'
 
 export default function Query() {
-    const tagList = ["person"]
     const history = useHistory()
-    const params = [
-      {
-        "tag1": "person"
-      },
-      {
-        "tag2": "dog"
-      }
-    ]
+
+    var params = [{}]
+    var tagArray = []
 
     function handleBackClick(e) {
       history.push("/Navigation")
     }
 
+    function handleTextChange(e) {
+        tagArray = e.target.value.split(",")
+        if (tagArray.length > 10) {
+            alert("Only 10 tags allowed")
+        }
+        console.log(tagArray)
+        return tagArray
+    }
+    
+    function generateTags () {
+        var count = 1
+        tagArray.forEach(element => {
+            var tag = "tag" + count
+            var param = {[tag] : element}
+            params.push(param)
+            count++
+        console.log(params)
+        });
+    }
     async function handleExecuteClick() {
       const idToken = await (await Auth.currentSession()).getIdToken()
       // console.log(idToken.getJwtToken())
@@ -58,8 +71,8 @@ export default function Query() {
     return (
         <Box display="flex" alignItems="center" flexDirection="column" top="40%" left="25%" right="25%" position="absolute" mx="auto">
         <Typography variant="h1">Run Query</Typography>
-        <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Enter tags seperated by ','" />
-        <Button variant="contained" onClick={handleExecuteClick}>Execute</Button>
+        <TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Enter tags seperated by ','" id="tags" onChange={handleTextChange.bind(this)}/>
+        <Button variant="contained" onClick={generateTags}>Execute</Button>
         <Button variant="contained" onClick={handleBackClick}>Back</Button>
       </Box>
     );

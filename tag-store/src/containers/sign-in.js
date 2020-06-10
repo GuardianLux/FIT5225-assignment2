@@ -24,14 +24,14 @@ export default function SignIn() {
             try {
                 await Auth.signIn(fields.userName, fields.password)
                 alert("Logged In")
-                await Auth.currentSession()
-                    .then(session => {
-                        console.log(session)
-                    })
+                //await Auth.currentSession()
+                    //.then(session => {
+                      //  console.log(session)
+                    //})
                 userHasAuthenticated(true)
                 history.push("/Navigation")
             } catch (err) {
-                alert(err.message)
+                console.log(err.message)
             }
         }
     }
