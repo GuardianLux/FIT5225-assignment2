@@ -11,10 +11,10 @@ export default function Query() {
     const history = useHistory()
     const params = [
       {
-        tag1: "person"
+        "tag1": "person"
       },
       {
-        tag2: "dog"
+        "tag2": "dog"
       }
     ]
 
@@ -25,28 +25,34 @@ export default function Query() {
     async function handleExecuteClick() {
       const idToken = await (await Auth.currentSession()).getIdToken()
       // console.log(idToken.getJwtToken())
+      console.log(Object.keys(params))
+      // params.forEach(obj => {
+      //   console.log(Object.keys(obj))
+      //   console.log(params[Object.keys(obj)])
+      // });
 
-      axios({
-        method: "GET",
-        url: "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?",
-        headers: {
-          Authorization: "Bearer " + idToken.getJwtToken()
-        },
-        params: {
-          tag1: "person",
-          tag2: "dog",
-          tag3: "tennis racket"
-        },
-        paramsSerializer: function(params) {
-          return Qs.stringify(params, {arrayFormat: 'brackets'})
-        }
-      })
-      .then(res => {
-        console.log("response", res)
-      })
-      .catch(err => {
-        console.log("Error", err)
-      })
+      // axios({
+      //   method: "GET",
+      //   url: "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?",
+      //   headers: {
+      //     Authorization: "Bearer " + idToken.getJwtToken()
+      //   },
+      //   params: {
+      //     // tag1: "person",
+      //     // tag2: "dog",
+      //     // tag3: "tennis racket"
+      //     params
+      //   },
+      //   paramsSerializer: params => {
+      //     return Qs.stringify(params, {arrayFormat: "repeat"})
+      //   }
+      // })
+      // .then(res => {
+      //   console.log("response", res)
+      // })
+      // .catch(err => {
+      //   console.log("Error", err)
+      // })
     }
 
     return (
