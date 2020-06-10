@@ -41,8 +41,8 @@ export default function Upload() {
       <Typography variant="h1">Upload an Image</Typography>
       <input type="file" onChange={handleChange} />
       <img src={fileUrl} />
-      <input type="button" value="Upload" onClick={save} />
-      <input type="button" value="Back" onClick={handleBackClick} />
+      <Button variant="contained" onClick={save}>Upload</Button>
+      <Button variant="contained" onClick={handleBackClick}>Back</Button>
     </Box>
   );
 
