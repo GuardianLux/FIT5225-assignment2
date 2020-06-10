@@ -6,16 +6,21 @@ def lambda_handler(event,context):
     if event:
         
         dynamodb = boto3.resource('dynamodb')
-        table = dynamodb.Table('yoloobject')
+        table = dynamodb.Table('ObjectDetection_Table')
         
         # get all tags and put that into a list for further processing
         key_list = []
         print(type(event))
         for key in event:
-            key_list.append(event[key])
+            if event[key] != '':
+                key_list.append(event[key])
         
         # url_set is the set for collecting all urls 
         url_set = set()
+        # url_list is the set for collecting all urls 
+        url_list = []
+        # final_url_list is the set for collecting all urls 
+        final_url_list = []
         
         # gets the maximum number of objects in the table
         resp1 = table.scan()                            #
@@ -34,8 +39,14 @@ def lambda_handler(event,context):
                 
                 if resp['Items'] != []:                                                         #
                     for each in resp['Items']:                                                  #
-                        url_set.add(each["keyId"])                                              #
+                        url_list.append(each["url"])                                            #
+                        url_set.add(each["url"])
+        
+        for each1 in url_set:                                                                   #
+            if url_list.count(each1) == len(key_list):                                          #                                                    # 
+                final_url_list.append(each1)                                                    #
+            
         #gets the url of the all the objects sepecified by the user #############################
             
-        return {'links': list(url_set)}
+        return {'links': list(final_url_list)}
  
