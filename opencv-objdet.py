@@ -16,7 +16,7 @@ def lambda_handler(event,context):
         
         dynamoDB = boto3.client('dynamodb')
         
-        table_name = 'yoloobject'
+        table_name = 'ObjectDetection_Table'
         
         # Fetching image filename from s3 bucket ############
         print("Event: ", event)                             #
@@ -25,19 +25,19 @@ def lambda_handler(event,context):
         print('filename: ',filename)                        #
         #####################################################
         
-        # Get url from of the images from the s3 bucket ################################################################
-        s3_url = s3.generate_presigned_url('get_object', Params = {'Bucket': 'imageprocess-bucket', 'Key': filename})  #
-        s3_url_test= (s3_url.split("?"))                                                                               #
-        print(s3_url_test)                                                                                             #
-        ################################################################################################################
+        # Get url from of the images from the s3 bucket ########################################################################
+        s3_url = s3.generate_presigned_url('get_object', Params = {'Bucket': 'object-detection-image-dump', 'Key': filename})  #
+        s3_url_test= (s3_url.split("?"))                                                                                       #
+        print(s3_url_test)                                                                                                     #
+        ########################################################################################################################
         
-        # converts the image file to numpy array ##################################
-        fileObj = s3.get_object(Bucket = "imageprocess-bucket", Key=filename)     #
-        file_content = fileObj["Body"].read()                                     # 
-        np_array = np.fromstring(file_content,np.uint8)                           #
-        image_np = cv2.imdecode(np_array, cv2.IMREAD_COLOR)                       # 
-        print("Type is: ",type(image_np))                                         #
-        ###########################################################################
+        # converts the image file to numpy array ##########################################
+        fileObj = s3.get_object(Bucket = "object-detection-image-dump", Key=filename)     #
+        file_content = fileObj["Body"].read()                                             #
+        np_array = np.fromstring(file_content,np.uint8)                                   #
+        image_np = cv2.imdecode(np_array, cv2.IMREAD_COLOR)                               #
+        print("Type is: ",type(image_np))                                                 #
+        ###################################################################################
         
         # Loads the Yolo algorithm
         net_obj = cv2.dnn.readNet('/opt/yolov3-tiny.weights', '/opt/yolov3-tiny.cfg')
@@ -74,7 +74,7 @@ def lambda_handler(event,context):
        
         # Put the detected objects to the DynamoDB ###########################
         data = {}                                                            #
-        data['keyId'] = {'S': s3_url_test[0]}                                #
+        data['url'] = {'S': s3_url_test[0]}                                 #
        
         i = 1                                                                #
         for each in objects: 
