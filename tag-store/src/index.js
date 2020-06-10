@@ -24,7 +24,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "tags",
+        name: "ObjectDetection_API",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       },
