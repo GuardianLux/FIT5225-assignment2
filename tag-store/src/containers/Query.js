@@ -2,15 +2,15 @@ import React from 'react';
 import { Typography, Box, Button, TextField, TextareaAutosize } from '@material-ui/core';
 import { flexbox, positions, spacing } from '@material-ui/system';
 import { useHistory } from 'react-router-dom'
-import { Auth } from 'aws-amplify';
+import { Auth, input } from 'aws-amplify';
 import axios from 'axios'
 import Qs from 'qs'
 
 export default function Query() {
   const history = useHistory()
 
-  var params = []
-  var tagArray = []
+  let params = []
+  let tagArray = []
 
   function handleBackClick(e) {
     history.push("/Navigation")
@@ -39,8 +39,8 @@ export default function Query() {
   async function generateTags() {
     var count = 1
     tagArray.forEach(element => {
-      var tag = "tag" + count
-      var param = { [tag]: element }
+      let tag = "tag" + count
+      let param = { [tag]: element }
       params.push(param)
       count++
       // console.log(params)
@@ -54,6 +54,9 @@ export default function Query() {
       const value = Object.values(param)[0]
       options += `${key}=${value}&`
     })
+    params = []
+    tagArray = []
+    document.getElementById("tags").value = ""
     options = options.slice(0, -1)
     console.log(options)
 
