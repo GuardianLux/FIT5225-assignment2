@@ -53,12 +53,6 @@ export default function App() {
     userHasAuthenticated(false)
   }
 
-  function handleCheckState(e) {
-    e.preventDefault()
-    console.log("isAuthenicated", isAuthenticated)
-    console.log("isAuthenticating", isAuthenticating)
-  }
-
   return (
     !isAuthenticating &&
     <div className={classes.root}>
