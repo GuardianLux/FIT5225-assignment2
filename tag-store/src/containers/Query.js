@@ -21,18 +21,36 @@ export default function Query() {
       alert("Only 10 tags allowed");
     }
     // console.log(tagArray)
-    return tagArray;
+
+    return tagArray
   }
 
   async function generateTags() {
-    var count = 1;
-    tagArray.forEach(element => {
-      let tag = "tag" + count;
-      let param = { [tag]: element };
-      params.push(param);
-      count++;
-      // console.log(params)
-    })
+    if (tagArray.length == 0) {
+      alert("Must have at least one tag")
+    } else {
+      var count = 1
+      tagArray.forEach(element => {
+        let tag = "tag" + count
+        let param = { [tag]: element }
+        params.push(param)
+        count++
+        // console.log(params)
+      })
+
+      const idToken = await (await Auth.currentSession()).getIdToken()
+      console.log("idToken: ", idToken)
+
+      // parseParams
+      let options = ''
+      params.forEach(param => {
+        const key = Object.keys(param)[0]
+        const value = Object.values(param)[0]
+        options += `${key}=${value}&`
+      })
+
+    return tagArray;
+  }
 
     const idToken = await (await Auth.currentSession()).getIdToken()
     console.log("idToken: ", idToken);
@@ -49,11 +67,17 @@ export default function Query() {
     console.log(options);
 
 
-    const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options;
-    // axios.get(url)
-    //   .then(res => {
-    //     console.log("response", res)
-    //   })
+      // reset arrays and values
+      params = []
+      tagArray = []
+      document.getElementById("tags").value = ""
+      options = options.slice(0, -1)
+      console.log(options)
+
+
+      // construct URL
+    const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options
+
 
     axios({
       method: "GET",
@@ -71,7 +95,13 @@ export default function Query() {
       .catch(err => {
         console.log("Error", err)
       })
-
+        .then(res => {
+          console.log("response", res)
+        })
+        .catch(err => {
+          console.log("Error", err)
+        })
+    }
   }
 
   return (
