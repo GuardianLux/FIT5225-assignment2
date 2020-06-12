@@ -22,7 +22,7 @@ export default function SignIn() {
         } else {
             try {
                 await Auth.signIn(fields.userName, fields.password)
-                alert("Logged In")
+                console.log("Logged In")
                 //await Auth.currentSession()
                     //.then(session => {
                       //  console.log(session)
@@ -40,7 +40,7 @@ export default function SignIn() {
             <Typography variant="h2">Login</Typography>
             <TextField
                 id="filled-basic"
-                label="Username"
+                label="Email"
                 variant="filled"
                 name="userName"
                 value={fields.userName}

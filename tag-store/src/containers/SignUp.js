@@ -67,7 +67,7 @@ export default function SignUp() {
                 <Typography variant="h2">Register</Typography>
                 <TextField
                     id="filled-basic"
-                    label="Username"
+                    label="Email"
                     variant="filled"
                     name="userName"
                     required={true}
