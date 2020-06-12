@@ -86,7 +86,7 @@ export default function Query() {
   }
 
   return (
-    <Box display="flex" alignItems="center" flexDirection="column" top="30%" left="25%" right="25%" position="absolute" mx="auto">
+    <Box display="flex" alignItems="center" flexDirection="column" top="5%" left="25%" right="25%" position="absolute" mx="auto">
       <Typography variant="h1">Run Query</Typography>
       <TextareaAutosize rowsMin={3} placeholder="Enter tags seperated by ','" id="tags" onChange={handleTextChange.bind(this)} />
       <Button variant="contained" onClick={generateTags}>Execute</Button>
