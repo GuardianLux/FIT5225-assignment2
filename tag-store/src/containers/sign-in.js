@@ -3,9 +3,9 @@ import { Typography, Box } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
-import { useAppContext } from '../libs/contextLib'
-import { useHistory } from 'react-router-dom'
-import { useFormFields } from '../libs/hooksLib'
+import { useAppContext } from '../libs/contextLib';
+import { useHistory } from 'react-router-dom';
+import { useFormFields } from '../libs/hooksLib';
 
 export default function SignIn() {
     const [fields, handleFieldChange] = useFormFields({     // custom hook for form fields
