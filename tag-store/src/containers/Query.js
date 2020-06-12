@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography, Box, Button, TextField, TextareaAutosize } from '@material-ui/core';
-import { flexbox, positions, spacing, sizing } from '@material-ui/system';
+import { Typography, Box, Button, TextareaAutosize } from '@material-ui/core';
 import { useHistory } from 'react-router-dom'
 import { Auth, input } from 'aws-amplify';
 import axios from 'axios';
@@ -93,7 +92,7 @@ export default function Query() {
       <Button variant="contained" onClick={generateTags}>Execute</Button>
       <Button variant="contained" onClick={handleBackClick}>Back</Button>
       <Box display="flex" alignItems="center" flexDirection="column" top="100%" left="25%" right="25%" position="absolute" mx="auto" width={100}>
-      <TextareaAutosize rowsMin={3} placeholder="Results will be displayed here" id="results" width={100}/>
+      <TextareaAutosize rowsMin={3} placeholder="Results will be displayed here, drag corner as needed" id="results" width={100}/>
       </Box>
     </Box>
   );

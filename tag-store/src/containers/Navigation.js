@@ -1,5 +1,5 @@
 import React from 'react';
-import { makestyles, makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { Paper, MenuList, MenuItem, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom'
 
