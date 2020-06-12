@@ -26,49 +26,54 @@ export default function Query() {
   }
 
   async function generateTags() {
-    var count = 1
-    tagArray.forEach(element => {
-      let tag = "tag" + count
-      let param = { [tag]: element }
-      params.push(param)
-      count++
-      // console.log(params)
-    })
-
-    const idToken = await (await Auth.currentSession()).getIdToken()
-    console.log("idToken: ", idToken)
-
-    // parseParams
-    let options = ''
-    params.forEach(param => {
-      const key = Object.keys(param)[0]
-      const value = Object.values(param)[0]
-      options += `${key}=${value}&`
-    })
-    params = []
-    tagArray = []
-    document.getElementById("tags").value = ""
-    options = options.slice(0, -1)
-    console.log(options)
-
-    // construct URL
-    const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options
-
-    // GET request
-    axios({
-      method: "GET",
-      url: url,
-      headers: {
-        Authorization: "Bearer " + idToken.getJwtToken()
-      },
-    })
-      .then(res => {
-        console.log("response", res)
-      })
-      .catch(err => {
-        console.log("Error", err)
+    if (tagArray.length == 0) {
+      alert("Must have at least one tag")
+    } else {
+      var count = 1
+      tagArray.forEach(element => {
+        let tag = "tag" + count
+        let param = { [tag]: element }
+        params.push(param)
+        count++
+        // console.log(params)
       })
 
+      const idToken = await (await Auth.currentSession()).getIdToken()
+      console.log("idToken: ", idToken)
+
+      // parseParams
+      let options = ''
+      params.forEach(param => {
+        const key = Object.keys(param)[0]
+        const value = Object.values(param)[0]
+        options += `${key}=${value}&`
+      })
+
+      // reset arrays and values
+      params = []
+      tagArray = []
+      document.getElementById("tags").value = ""
+      options = options.slice(0, -1)
+      console.log(options)
+
+      // construct URL
+      const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options
+
+      // GET request
+      axios({
+        method: "GET",
+        url: url,
+        headers: {
+          Authorization: "Bearer " + idToken.getJwtToken()
+        },
+      })
+        .then(res => {
+          console.log("response", res)
+        })
+        .catch(err => {
+          console.log("Error", err)
+        })
+    }
   }
 
   return (
