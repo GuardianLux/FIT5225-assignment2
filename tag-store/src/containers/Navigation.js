@@ -2,6 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Paper, MenuList, MenuItem, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+
+const path = (/#!(\/.*)$/.exec(window.location.hash) || [])[1];
+if (path) {
+    history.replace(path);
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {

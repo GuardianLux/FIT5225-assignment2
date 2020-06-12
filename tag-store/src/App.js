@@ -7,6 +7,15 @@ import Button from '@material-ui/core/Button';
 import Routes from "./Routes";
 import { AppContext } from './libs/contextLib';    // using context to get state from different components
 import { Auth } from "aws-amplify";
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+
+const path = (/#!(\/.*)$/.exec(window.location.hash) || [])[1];
+if (path) {
+    history.replace(path);
+}
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

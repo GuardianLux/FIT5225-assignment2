@@ -14,7 +14,6 @@ const path = (/#!(\/.*)$/.exec(window.location.hash) || [])[1];
 if (path) {
     history.replace(path);
 }
-
 Amplify.configure({
   Auth: {
     mandatorySignIn: false,
