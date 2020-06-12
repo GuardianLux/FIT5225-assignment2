@@ -5,8 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Routes from "./Routes";
-import { AppContext } from './libs/contextLib'    // using context to get state from different components
-import { Auth } from "aws-amplify"
+import { AppContext } from './libs/contextLib';    // using context to get state from different components
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,12 +51,6 @@ export default function App() {
     // e.preventDefault()
     await Auth.signOut()
     userHasAuthenticated(false)
-  }
-
-  function handleCheckState(e) {
-    e.preventDefault()
-    console.log("isAuthenicated", isAuthenticated)
-    console.log("isAuthenticating", isAuthenticating)
   }
 
   return (

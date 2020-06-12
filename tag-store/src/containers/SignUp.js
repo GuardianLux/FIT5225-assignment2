@@ -22,7 +22,7 @@ export default function SignUp() {
     // handle registration click button
     async function handleRegisterClick(e) {
         e.preventDefault()
-        if (fields.userName.length == 0 || fields.firstName.length == 0 || fields.lastName.length == 0 || fields.password.length == 0 || fields.confirmPassword.length == 0) {
+        if (fields.userName.length === 0 || fields.firstName.length === 0 || fields.lastName.length === 0 || fields.password.length === 0 || fields.confirmPassword.length === 0) {
             alert("All fields are mandatory, please fill in all fields")
         } else {
             if (fields.password !== fields.confirmPassword) {

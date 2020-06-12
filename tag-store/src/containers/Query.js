@@ -1,26 +1,27 @@
 import React from 'react';
 import { Typography, Box, Button, TextareaAutosize } from '@material-ui/core';
 import { useHistory } from 'react-router-dom'
-import { Auth, input } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import axios from 'axios';
 
 export default function Query() {
-  const history = useHistory()
+  const history = useHistory();
 
-  let params = []
-  let tagArray = []
-  let resData = []
+  let params = [];
+  let tagArray = [];
+  let resData = [];
 
   function handleBackClick(e) {
-    history.push("/Navigation")
+    history.push("/Navigation");
   }
 
   function handleTextChange(e) {
-    tagArray = e.target.value.split(",")
+    tagArray = e.target.value.split(",");
     if (tagArray.length > 10) {
-      alert("Only 10 tags allowed")
+      alert("Only 10 tags allowed");
     }
     // console.log(tagArray)
+
     return tagArray
   }
 
@@ -48,6 +49,24 @@ export default function Query() {
         options += `${key}=${value}&`
       })
 
+    return tagArray;
+  }
+
+    const idToken = await (await Auth.currentSession()).getIdToken()
+    console.log("idToken: ", idToken);
+    let options = '';
+    params.forEach(param => {
+      const key = Object.keys(param)[0];
+      const value = Object.values(param)[0];
+      options += `${key}=${value}&`;
+    })
+    params = [];
+    tagArray = [];
+    document.getElementById("tags").value = "";
+    options = options.slice(0, -1);
+    console.log(options);
+
+
       // reset arrays and values
       params = []
       tagArray = []
@@ -55,8 +74,10 @@ export default function Query() {
       options = options.slice(0, -1)
       console.log(options)
 
+
       // construct URL
-      const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options
+    const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options
+
 
     axios({
       method: "GET",

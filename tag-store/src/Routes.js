@@ -3,10 +3,10 @@ import { Route, Switch } from "react-router-dom";
 import SignIn from "./containers/sign-in";
 import SignUp from "./containers/SignUp";
 import Home from "./containers/Home";
-import NotFound from "./containers/NotFound"
-import Upload from "./containers/Upload"
-import Navigation from "./containers/Navigation"
-import Query from "./containers/Query"
+import NotFound from "./containers/NotFound";
+import Upload from "./containers/Upload";
+import Navigation from "./containers/Navigation";
+import Query from "./containers/Query";
 
 export default function Routes() {
   return (

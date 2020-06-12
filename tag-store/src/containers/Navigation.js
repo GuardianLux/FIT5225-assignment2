@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Paper, MenuList, MenuItem, Typography } from '@material-ui/core';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,17 +16,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Navigation() {
-    const classes = useStyles()
-    const history = useHistory()
+    const classes = useStyles();
+    const history = useHistory();
 
     function handleUploadClick(e) {
-        console.log("clicked")
-        history.push("/Upload")
+        console.log("clicked");
+        history.push("/Upload");
     }
 
     function handleQueryClick(e) {
-        console.log("clicked")
-        history.push("/Query")
+        console.log("clicked");
+        history.push("/Query");
     }
 
     return (

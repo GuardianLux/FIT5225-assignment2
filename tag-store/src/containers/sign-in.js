@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Typography, Box } from '@material-ui/core';
-import { flexbox, positions, spacing } from '@material-ui/system';
 import { Button } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Auth } from 'aws-amplify';
-import { useAppContext } from '../libs/contextLib'
-import { useHistory } from 'react-router-dom'
-import { useFormFields } from '../libs/hooksLib'
+import { useAppContext } from '../libs/contextLib';
+import { useHistory } from 'react-router-dom';
+import { useFormFields } from '../libs/hooksLib';
 
 export default function SignIn() {
     const [fields, handleFieldChange] = useFormFields({     // custom hook for form fields
@@ -18,7 +17,7 @@ export default function SignIn() {
 
     async function handleSignIn(e) {
         e.preventDefault()
-        if (fields.userName.length == 0 || fields.password.length == 0) {
+        if (fields.userName.length === 0 || fields.password.length === 0) {
             alert("Username or password cannot be blank")
         } else {
             try {
