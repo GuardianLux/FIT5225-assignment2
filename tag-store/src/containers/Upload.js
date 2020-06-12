@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { Typography, Box, Button, TextField } from '@material-ui/core';
-import { flexbox, positions, spacing } from '@material-ui/system';
 import { Storage } from "aws-amplify";
 import { useHistory } from 'react-router-dom'
 
