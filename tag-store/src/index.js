@@ -6,6 +6,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Amplify } from 'aws-amplify';
 import config from './config';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+
+const path = (/#!(\/.*)$/.exec(window.location.hash) || [])[1];
+if (path) {
+    history.replace(path);
+}
 
 Amplify.configure({
   Auth: {
