@@ -25,17 +25,6 @@ export default function Query() {
     return tagArray
   }
 
-  const parseParams = (params) => {
-    // let parameters = params
-    let options = ''
-    params.forEach(param => {
-      const key = Object.keys(param)[0]
-      const value = Object.values(param)[0]
-      options += `${key}=${value}&`
-      return options.slice(0, -1)
-    })
-  }
-
   async function generateTags() {
     var count = 1
     tagArray.forEach(element => {
@@ -48,6 +37,8 @@ export default function Query() {
 
     const idToken = await (await Auth.currentSession()).getIdToken()
     console.log("idToken: ", idToken)
+
+    // parseParams
     let options = ''
     params.forEach(param => {
       const key = Object.keys(param)[0]
@@ -57,13 +48,10 @@ export default function Query() {
     options = options.slice(0, -1)
     console.log(options)
 
-
+    // construct URL
     const url = "https://7wo7odchxb.execute-api.us-east-1.amazonaws.com/dev/search?" + options
-    // axios.get(url)
-    //   .then(res => {
-    //     console.log("response", res)
-    //   })
 
+    // GET request
     axios({
       method: "GET",
       url: url,
