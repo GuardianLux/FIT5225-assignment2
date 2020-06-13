@@ -40,7 +40,7 @@ export default function SignUp() {
                     })
                     setNewUser(newUser)
                 } catch (err) {
-                    alert(err)
+                    alert("Your password must contain a special character, a capital letter, and a number minimum")
                 }
             }
         }

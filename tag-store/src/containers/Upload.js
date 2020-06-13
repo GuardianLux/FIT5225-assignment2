@@ -14,6 +14,7 @@ export default function Upload() {
  }
 
  function save(){
+   if (filename != "") {
    Storage.put(filename, file)
     .then(() => {
       console.log('Upload success');
@@ -24,6 +25,10 @@ export default function Upload() {
     .catch(err => {
       console.log(err);
     })
+  }
+  else {
+    alert("Please select a file to upload");
+  }
  }
 
   const history = useHistory();
