@@ -7,33 +7,35 @@ import NotFound from "./containers/NotFound";
 import Upload from "./containers/Upload";
 import Navigation from "./containers/Navigation";
 import Query from "./containers/Query";
+import AuthenticatedRoute from "./containers/AuthenticatedRoute";
+import UnauthenticatedRoute from "./containers/UnauthenticatedRoute";
 
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
+      <UnauthenticatedRoute exact path="/">
         <Home />
-      </Route>
-      <Route exact path="/SignIn">
+      </UnauthenticatedRoute>
+      <UnauthenticatedRoute exact path="/SignIn">
         <SignIn />
-      </Route>
-      <Route exact path="/SignUp">
+      </UnauthenticatedRoute>
+      <UnauthenticatedRoute exact path="/SignUp">
         <SignUp />
-      </Route>
-      <Route exact path="/Upload">
+      </UnauthenticatedRoute>
+      <AuthenticatedRoute exact path="/Upload">
         <Upload />
-      </Route>
-      <Route exact path="/Query">
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/Query">
         <Query />
-      </Route>
-      <Route>
+      </AuthenticatedRoute>
+      <AuthenticatedRoute>
         <Route exact path="/Navigation">
           <Navigation />
         </Route>
-      </Route>
-      <Route>
+      </AuthenticatedRoute>
+      <AuthenticatedRoute>
         <NotFound />
-      </Route>
+      </AuthenticatedRoute>
     </Switch>
   );
 }
